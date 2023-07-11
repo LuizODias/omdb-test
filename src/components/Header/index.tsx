@@ -1,4 +1,4 @@
-export default function Header () {
+export const Header = () => {
   return (
     <header className="App-header">
       NTTFlix

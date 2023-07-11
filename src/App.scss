@@ -3,17 +3,20 @@
   src: url('./static/BebasNeue-Regular.ttf');
 }
 
+$color-base: #2c3335;
+
 .App {
   text-align: center;
-  background-color: #2c3335;
+  background-color: $color-base;
   min-height: 100vh;
   display: flex;
   justify-content: center;
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 44px;
   margin: 10px;
+  font-family: "Bebas";
 }
 
 h2 {
@@ -25,35 +28,119 @@ h2 {
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media (max-width: 600px) {
+  .movie-details {
+    padding: 20px;
+  }
+
+  .section-film
+  {
+    width: 100%;
+    padding-top: 10vh;
+    background-color: rgb(255, 255, 255);
+  }
+
+  .search-bar {
+    align-items: center;
+    width: fit-content;
+    display: flex;
+    margin: 25px auto;
+    border: solid 2px;
+    border-radius: 20px;
+    padding: 5px 10px;
+  }
+
+  select {
+    color: #000000;
+    background-color: transparent;
+    border: none;
+    padding: 0 0.2em 0 0;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    line-height: inherit;
+    outline: none;
+  }
+
+  .search-icon {
+    filter: contrast(100%)
+  }
+
+  input {
+    color: #000000;
+    background-color: transparent;
+    width: 100%;
   }
 }
 
-.section-film {
-  width: 60%;
-  padding-top: 10vh;
-  background-color: rgb(255, 255, 255);
+
+@media (min-width: 900px) {
+  .App {
+    color: #fff;
+  }
+
+  .search-icon {
+    filter: contrast(0%)
+  }
+
+  .section-film {
+    width: 60%;
+    padding-top: 10vh;
+    background-color: transparent;
+  }
+
+  .movie-details {
+    padding: 0px 20px;
+    justify-content: space-between;
+  }
+
+  .movie-infos {
+    margin-left: 40px;
+  }
+
+  .search-bar {
+    align-items: center;
+    width: inherit;
+    display: flex;
+    margin: 25px auto;
+    border: solid 2px;
+    border-radius: 20px;
+    padding: 5px 10px;
+  }
+
+  select {
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    padding: 0 0.2em 0 0;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    line-height: inherit;
+    outline: none;
+  }
+
+  input {
+    color: #fff;
+    background-color: transparent;
+    width: 100%;
+  }
+
+  option {
+    color:#000000
+  }
+}
+
+.section-title {
+  margin-bottom: 28px;
 }
 
 :root {
   --select-border: #777;
   --select-focus: blue;
   --select-arrow: var(--select-border);
-}
-
-select {
-  background-color: transparent;
-  border: none;
-  padding: 0 0.2em 0 0;
-  margin: 0;
-  width: 100%;
-  font-family: inherit;
-  font-size: inherit;
-  cursor: pointer;
-  line-height: inherit;
-  outline: none;
 }
 
 input[type="text"]:focus-visible {
@@ -86,26 +173,6 @@ input[type="text"] {
   cursor: pointer;
 }
 
-.search-bar {
-  align-items: center;
-  width: fit-content;
-  display: flex;
-  margin: 0px auto;
-  border: solid 2px;
-  border-radius: 10px;
-  padding: 5px 10px;
-}
-
-.movie-details {
-  display: flex;
-  padding: 20px 45px;
-  justify-content: space-between;
-}
-
-.movie-infos {
-  margin-right: 65px;
-}
-
 .movie-item {
   font-weight: bold;
   padding-right: 15px;
@@ -117,8 +184,8 @@ input[type="text"] {
 }
 
 .poster-img {
-  border: solid 1px
-}
+  padding-bottom: 15px;
+} 
 
 .movie-description {
   text-align: left;
