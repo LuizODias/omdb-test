@@ -1,34 +1,50 @@
-import { Dispatch, SetStateAction } from 'react';
-import findIcon from '../../../static/findIcon.svg';
+import { Dispatch, SetStateAction } from "react";
+import findIcon from "../../../static/findIcon.svg";
+import { Select, Option, Input } from "@ui5/webcomponents-react";
 
 export interface SearchBarProps {
-  title: string,
-  type: string,
+  title: string;
   setTitle: Dispatch<SetStateAction<string>>;
-  setType: Dispatch<SetStateAction<string>>,
-  getMovie: () => void
+  setType: Dispatch<SetStateAction<string>>;
+  getMovie: () => void;
 }
 
 export const SearchBar = (props: SearchBarProps) => {
-  const {type, title, setType, setTitle, getMovie} = props;
+  const { title, setType, setTitle, getMovie } = props;
   return (
-    <div className='search-bar'>
-        <select name="select" value={type} defaultValue={"movie"} onChange={(e) => setType(e.target.value)}>
-          <option value="movie">Filme</option>
-          <option value="series">Série</option>
-        </select>
+    <div className="search-bar">
+      <Select
+        className="select-ui"
+        defaultValue={"movie"}
+        onChange={(e) => setType(e.detail.selectedOption.value)}
+      >
+        <Option value={"movie"}>Filme</Option>
+        <Option value={"series"}>Série</Option>
+      </Select>
 
-        <input 
-          onKeyDown={(e) => { if(e.code === "Enter") getMovie() }} 
-          type='text' 
-          value={title} 
-          onChange={(e) => setTitle(e.target.value)} 
-          placeholder='Procure por filmes ou séries' />
+      <Input
+        onKeyDown={(e) => {
+          if (e.code === "Enter") getMovie();
+        }}
+        onInput={(e) => {
+          setTitle(e.target.value!);
+        }}
+        className="input-ui"
+        type="Text"
+        value={title}
+        placeholder="Procure por filmes ou séries"
+      />
 
-        <img 
-          className="search-icon" 
-          onClick={() => { if (title.length) getMovie() }} 
-          src={findIcon} width={17} height={17} />
-      </div>
+      <img
+        className="search-icon"
+        onClick={() => {
+          if (title.length) getMovie();
+        }}
+        alt="Icone de procura"
+        src={findIcon}
+        width={17}
+        height={17}
+      />
+    </div>
   );
-}
+};

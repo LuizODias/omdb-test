@@ -1,48 +1,55 @@
-import axios from "axios";
-import { SetStateAction, useState } from "react";
-import { MovieInterface } from "../../interfaces";
-import { SectionInfo } from "./components/section-info";
-import { NotFound } from "./components/not-found";
-import { Instruction } from "./components/instruction";
-import { Loading } from "./components/loading";
-import { SearchBar } from "./components/search-bar";
-
-const baseURL = "http://localhost:8080"
+import { useState } from "react";
+import {
+  Instruction,
+  Loading,
+  NotFound,
+  SearchBar,
+  SectionInfo,
+} from "./components";
+import { useAppSelector, useAppDispatch } from "../../store";
+import { fetchMovie } from "../../features/apiSlice";
 
 export const Section = () => {
-  const [title, setTitle] = useState('');
-  const [type, setType] = useState('movie');
-  const [movie, setMovie] = useState<MovieInterface>({});
-  const [loading, setLoading] = useState(false);
+  const [title, setTitle] = useState("");
+  const [type, setType] = useState("movie");
 
-  const getMovie = () => {
-    setLoading(true);
-    axios.get(`${baseURL}/${title}/${type}`).then((resp: { data: SetStateAction<MovieInterface>; }) => {
-      setMovie(resp.data);
-      console.log(resp.data);
-      setTimeout(() => {
-        setLoading(false)
-      }, 1000);
-    });
-  }
+  const { movie: testMovie, loading: testLoading } = useAppSelector(
+    (state) => state.movie
+  );
+  const dispatch = useAppDispatch();
+
+  const fetchTest = () => {
+    dispatch(fetchMovie({ title, type }));
+    console.log(testMovie);
+  };
 
   return (
-    <section className='section-film'>
+    <section className="section-film">
       <div className="section-title">
         <h1> NTTFlix </h1>
         <h2> O melhor site para encontrar o seu filme</h2>
       </div>
 
-      <SearchBar setTitle={setTitle} setType={setType} title={title} type={type} getMovie={getMovie} />
+      <SearchBar
+        setTitle={setTitle}
+        setType={setType}
+        title={title}
+        getMovie={fetchTest}
+      />
 
-      {loading ?
+      {testLoading ? (
         <Loading />
-        : (Object.keys(movie).length !== 0 ?
-          <div className='movie-details'>
-            { movie.Response === "False" ? <NotFound title={title} type={type} /> : <SectionInfo {...movie}/> }
-          </div>
-        : <Instruction />)
-      }
+      ) : Object.keys(testMovie).length !== 0 ? (
+        <div className="movie-details">
+          {testMovie.Response === "False" ? (
+            <NotFound title={title} type={type} />
+          ) : (
+            <SectionInfo {...testMovie} />
+          )}
+        </div>
+      ) : (
+        <Instruction />
+      )}
     </section>
   );
-} 
+};

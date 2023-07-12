@@ -50,11 +50,12 @@ h2 {
     padding: 5px 10px;
   }
 
-  select {
+  .select-ui {
     color: #000000;
     background-color: transparent;
     border: none;
     padding: 0 0.2em 0 0;
+    width: min-content;
     margin: 0;
     font-family: inherit;
     font-size: inherit;
@@ -67,10 +68,14 @@ h2 {
     filter: contrast(100%)
   }
 
-  input {
+  .input-ui {
     color: #000000;
+    border: none;
     background-color: transparent;
     width: 100%;
+    :focus {
+      outline: none;
+    }
   }
 }
 
@@ -109,11 +114,13 @@ h2 {
     padding: 5px 10px;
   }
 
-  select {
+  .select-ui {
     color: #fff;
+    filter: contrast(0);
     background-color: transparent;
     border: none;
     padding: 0 0.2em 0 0;
+    width: min-content;
     margin: 0;
     font-family: inherit;
     font-size: inherit;
@@ -122,10 +129,15 @@ h2 {
     outline: none;
   }
 
-  input {
+  .input-ui {
     color: #fff;
     background-color: transparent;
     width: 100%;
+    border: none;
+
+    :focus {
+      outline: none;
+    }
   }
 
   option {
